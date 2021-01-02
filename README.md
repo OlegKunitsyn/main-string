@@ -2,7 +2,7 @@
 Enterprise COBOL library with string functions
 
 <p align="center">
-  <img src="https://github.com/OlegKunitsyn/main-string/workflows/ci/badge.svg" />
+  <img src="https://github.com/OlegKunitsyn/main-string/workflows/ci/badge.svg?branch=master" />
 </p>
 
 # Usage
