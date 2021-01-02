@@ -86,6 +86,8 @@
        program-id. stripos.
        data division.
        working-storage section.
+        01 haystack-idx pic 9(9) usage binary value 1.
+        01 needle-idx pic 9(9) usage binary value 1.
         01 ws-idx pic 9(9) usage binary value 1.
         01 ws-char pic x.
        linkage section.
@@ -100,6 +102,12 @@
            using l-haystack, l-h-len, l-needle, l-n-len
            returning l-result.
            
+           initialize haystack-idx, needle-idx, l-result all to value.
+
+           if l-h-len < l-n-len
+              goback
+           end-if.
+
            perform varying ws-idx from 1 by 1 until ws-idx > l-h-len
                move l-haystack(ws-idx:1) to ws-char 
                move function lower-case(ws-char) to l-haystack(ws-idx:1)
@@ -109,8 +117,16 @@
                move function lower-case(ws-char) to l-needle(ws-idx:1)
            end-perform.
 
-           call 'strpos' using 
-               by reference l-haystack, by content l-h-len, 
-               by reference l-needle, by content l-n-len 
-               returning l-result.
+           perform until haystack-idx > l-h-len
+               if l-haystack(haystack-idx:1) = l-needle(needle-idx:1)
+                  if needle-idx = l-n-len
+                      compute l-result = haystack-idx - needle-idx + 1
+                      exit perform
+                  end-if
+                  add 1 to needle-idx
+               else
+                  initialize needle-idx all to value
+               end-if
+               add 1 to haystack-idx
+           end-perform.
        end program stripos.

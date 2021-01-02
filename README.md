@@ -1,6 +1,10 @@
 # Main String
 Enterprise COBOL library with string functions
 
+<p align="center">
+  <img src="https://github.com/OlegKunitsyn/main-string/workflows/ci/badge.svg" />
+</p>
+
 # Usage
 Install and initialize [COBOL Package Manager](https://cobolget.com):
 ```

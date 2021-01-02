@@ -1,33 +1,53 @@
-       *>**
-       *> Tests
-       *> @TODO assertions
-       *> @TODO paragraphs
-       *>**
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. TESTS.
+       PROGRAM-ID. TESTALL.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-        01 ws-haystack PIC X(128) VALUE 'Crazy fox'.
-        01 ws-needle PIC X(2).
-        01 ws-result PIC 9(9) USAGE BINARY.
+       01 ws-haystack PIC X(128) VALUE "Crazy fox".
+       01 ws-needle PIC X(2).
+       01 expected pic 9(9) usage binary.
+       01 actual pic 9(9) usage binary.
        PROCEDURE DIVISION.
-           MOVE 'zy' TO ws-needle.
-           CALL 'strpos' USING 
-               BY REFERENCE ws-haystack,
-               BY CONTENT LENGTH OF ws-haystack, 
-               BY REFERENCE ws-needle,
-               BY CONTENT LENGTH OF ws-needle 
-               RETURNING ws-result.
-           DISPLAY ws-result " expected 4".
+      * STRPOS
+           MOVE 4 TO expected.
 
-           MOVE 'Fo' TO ws-needle.
-           CALL 'stripos' USING 
-               BY REFERENCE ws-haystack,
-               BY CONTENT LENGTH OF ws-haystack, 
-               BY REFERENCE ws-needle,
+           MOVE "zy" TO ws-needle.
+           CALL "STRPOS" USING 
+               BY REFERENCE ws-haystack
+               BY CONTENT LENGTH OF ws-haystack
+               BY REFERENCE ws-needle
                BY CONTENT LENGTH OF ws-needle 
-               RETURNING ws-result.
-           DISPLAY ws-result " expected 7".
+               RETURNING actual.
+           CALL "ECBLUEQ" USING BY VALUE expected, BY VALUE actual.
+      
+           MOVE "zY" TO ws-needle.
+           CALL "STRPOS" USING 
+               BY REFERENCE ws-haystack
+               BY CONTENT LENGTH OF ws-haystack
+               BY REFERENCE ws-needle
+               BY CONTENT LENGTH OF ws-needle 
+               RETURNING actual.
+           CALL "ECBLUNEQ" USING BY VALUE expected, BY VALUE actual.
+
+      * STRIPOS
+           MOVE 7 TO expected.
+
+           MOVE "Fo" TO ws-needle.
+           CALL "STRIPOS" USING 
+               BY REFERENCE ws-haystack
+               BY CONTENT LENGTH OF ws-haystack
+               BY REFERENCE ws-needle
+               BY CONTENT LENGTH OF ws-needle 
+               RETURNING actual.
+           CALL "ECBLUEQ" USING BY VALUE expected, BY VALUE actual.
+
+           MOVE "ff" TO ws-needle.
+           CALL "STRIPOS" USING 
+               BY REFERENCE ws-haystack
+               BY CONTENT LENGTH OF ws-haystack
+               BY REFERENCE ws-needle
+               BY CONTENT LENGTH OF ws-needle 
+               RETURNING actual.
+           CALL "ECBLUNEQ" USING BY VALUE expected, BY VALUE actual.
            
-           STOP RUN.
-       END PROGRAM TESTS.
+           GOBACK.
+       END PROGRAM TESTALL.

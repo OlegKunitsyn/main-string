@@ -12,7 +12,9 @@
         "LGPL-3.0"
     ],
     "dependencies": {},
-    "dependencies-debug": {},
+    "dependencies-debug": {
+        "ecblunit": "*"
+    },
     "scripts": {
         "doc": "coboldoc generate src/* -o coboldoc",
         "build": "cobolget update && cobolget install",
